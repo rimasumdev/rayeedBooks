@@ -40,9 +40,9 @@ const Nav = () => {
           </div>
           <Link to="/" className="btn btn-ghost text-xl font-bold">
             <img
-              src="./src/assets/logo.svg"
+              src="/src/assets/img/logo.svg"
               alt="logo"
-              className="hidden lg:block"
+              className=" lg:block"
             />
             Rayeed&apos;s Book Store
           </Link>

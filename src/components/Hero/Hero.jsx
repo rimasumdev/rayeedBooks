@@ -14,7 +14,7 @@ const Hero = () => {
                   Knowledge
                 </span>
               </h1>
-              <p className="text-gray-500 px-4 lg:px-0">
+              <p className="text-gray-500">
                 Explore a carefully curated selection of books across genres,
                 perfect for every reader.
               </p>
