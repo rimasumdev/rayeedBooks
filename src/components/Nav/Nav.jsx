@@ -39,11 +39,7 @@ const Nav = () => {
             </ul>
           </div>
           <Link to="/" className="btn btn-ghost text-xl font-bold">
-            <img
-              src="/src/assets/img/logo.svg"
-              alt="logo"
-              className=" lg:block"
-            />
+            <img src="/img/logo.svg" alt="logo" className=" lg:block" />
             Rayeed&apos;s Book Store
           </Link>
         </div>
