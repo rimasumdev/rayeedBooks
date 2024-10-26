@@ -42,7 +42,7 @@ const BookDetails = () => {
     if (existingWishlistIds) {
       setIsWishlist(true);
     }
-  }, [isRead, isWishlist]);
+  }, [id, readBooks, wishlist]);
   const handleAddTo = (e) => {
     if (e.target.innerText === "Read Now") {
       if (!isRead) {
