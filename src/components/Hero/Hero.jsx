@@ -1,4 +1,4 @@
-import HeroImage from "../../assets/img/HeroBook1.png";
+import HeroImage from "/img/HeroBook1.png";
 import { Link } from "react-router-dom";
 const Hero = () => {
   return (
