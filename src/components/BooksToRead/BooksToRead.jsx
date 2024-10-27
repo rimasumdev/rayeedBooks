@@ -5,17 +5,10 @@ import { useState, useEffect } from "react";
 import { getFromLocalStorage } from "../../utility/LocalStorage";
 const BooksToRead = () => {
   const books = useLoaderData();
-  // console.log(books);
   const readBooks = getFromLocalStorage("readBooks");
-  // console.log("readBooks", readBooks);
   const wishlist = getFromLocalStorage("wishlist");
-  // console.log("wishlist", wishlist);
-  // const [isRead, setIsRead] = useState(false);
-  // const [isWishlist, setIsWishlist] = useState(false);
   const [toReadBooksDisplay, setToReadBooksDisplay] = useState([]);
   const [toWishlistBooksDisplay, setToWishlistBooksDisplay] = useState([]);
-
-  // console.log("ReadBooksIds", toReadBooksDisplay);
   useEffect(() => {
     const ReadBooksIds = books.filter((book) =>
       readBooks.includes(book.bookId)
@@ -25,15 +18,38 @@ const BooksToRead = () => {
       wishlist.includes(book.bookId)
     );
     setToWishlistBooksDisplay(WishlistBooksIds);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const [isTabActive, setIsTabActive] = useState("Read Books");
 
+  const handleTabChange = (e) => {
+    setIsTabActive(e.target.ariaLabel);
+  };
+
+  const handleSort = (e) => {
+    if (isTabActive === "Read Books") {
+      const sortedBooks = [...toReadBooksDisplay].sort((a, b) =>
+        e.target.ariaLabel === "Ascending"
+          ? a.yearOfPublishing - b.yearOfPublishing
+          : b.yearOfPublishing - a.yearOfPublishing
+      );
+      setToReadBooksDisplay(sortedBooks);
+    } else if (isTabActive === "Wishlist Books") {
+      const sortedBooks = [...toWishlistBooksDisplay].sort((a, b) =>
+        e.target.ariaLabel === "Ascending"
+          ? a.yearOfPublishing - b.yearOfPublishing
+          : b.yearOfPublishing - a.yearOfPublishing
+      );
+      setToWishlistBooksDisplay(sortedBooks);
+    }
+  };
   return (
     <section className="py-10">
       <div className="container mx-auto space-y-10">
         <div className="bg-green-50 p-5 rounded-lg">
           <h1 className="text-3xl font-bold text-center">Books to Read</h1>
         </div>
-        <div className="flex justify-end">
+        <div className="flex md:justify-end justify-center">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn w-52 bg-green-100">
               Sort By <MdOutlineKeyboardArrowDown />
@@ -42,16 +58,37 @@ const BooksToRead = () => {
               tabIndex={0}
               className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
             >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Item 2</a>
-              </li>
+              {isTabActive === "Read Books" ? (
+                <>
+                  <li>
+                    <a aria-label="Ascending" onClick={handleSort}>
+                      Ascending
+                    </a>
+                  </li>
+                  <li>
+                    <a aria-label="Descending" onClick={handleSort}>
+                      Descending
+                    </a>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <a aria-label="Ascending" onClick={handleSort}>
+                      Ascending
+                    </a>
+                  </li>
+                  <li>
+                    <a aria-label="Descending" onClick={handleSort}>
+                      Descending
+                    </a>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
-        <div role="tablist" className="tabs tabs-lifted">
+        <div role="tablist" className="tabs tabs-lifted ">
           <input
             type="radio"
             name="my_tabs_2"
@@ -59,6 +96,7 @@ const BooksToRead = () => {
             className="tab !w-40"
             aria-label="Read Books"
             defaultChecked
+            onChange={handleTabChange}
           />
           <div
             role="tabpanel"
@@ -68,16 +106,16 @@ const BooksToRead = () => {
               {toReadBooksDisplay.map((book) => (
                 <div
                   key={book.bookId}
-                  className="flex gap-10 border p-5 rounded-lg h-80 w-full"
+                  className="flex flex-col lg:flex-row flex-wrap lg:flex-nowrap gap-10 border p-5 rounded-lg lg:h-80 w-full"
                 >
-                  <div className="w-1/4 h-full p-2 rounded-lg bg-green-100">
+                  <div className="lg:w-1/4 w-full h-64 lg:h-full p-2 rounded-lg bg-green-100">
                     <img
                       src={book.image}
                       alt={book.bookName}
                       className="w-full h-full object-contain "
                     />
                   </div>
-                  <div className="w-3/4 space-y-4 md:border-l md:border-dashed md:border-gray-300 md:pl-10">
+                  <div className="lg:w-3/4 space-y-4 md:border-l md:border-dashed md:border-gray-300 md:pl-10">
                     <div className="space-y-5">
                       <h1 className="text-3xl md:text-4xl font-bold">
                         {book.bookName}
@@ -85,7 +123,7 @@ const BooksToRead = () => {
                       <p className="text-xl italic">
                         <span className="font-bold">By:</span> {book.author}
                       </p>
-                      <div className="flex gap-5">
+                      <div className="flex gap-5 flex-wrap">
                         <p className="flex gap-2 flex-wrap">
                           <span className="font-bold ">Tags:</span>
                           {book.tags.map((tag) => (
@@ -102,7 +140,7 @@ const BooksToRead = () => {
                           {book.yearOfPublishing}
                         </p>
                       </div>
-                      <div className="flex gap-4 border-b border-dashed border-gray-300 pb-4">
+                      <div className="flex flex-wrap gap-4 border-b border-dashed border-gray-300 pb-4">
                         <p>
                           <span className="font-bold">Publisher:</span>{" "}
                           {book.publisher}
@@ -113,7 +151,7 @@ const BooksToRead = () => {
                         </p>
                       </div>
                     </div>
-                    <div className="flex gap-4 items-center">
+                    <div className="flex flex-wrap gap-4 items-center">
                       <p className="font-semibold text-green-700 bg-green-200 px-4 py-2 rounded-full">
                         {book.category}
                       </p>
@@ -138,6 +176,7 @@ const BooksToRead = () => {
             role="tab"
             className="tab !w-40"
             aria-label="Wishlist Books"
+            onChange={handleTabChange}
           />
           <div
             role="tabpanel"
