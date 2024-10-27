@@ -72,7 +72,7 @@ const BookDetails = () => {
   const notify = (msg, type) => {
     toast(msg, {
       style: {
-        background: type === "success" ? "#4ade80" : "#ef4444",
+        background: type === "success" ? "#059669" : "#ef4444",
         color: "white",
       },
     });
