@@ -4,7 +4,7 @@ const Nav = () => {
   const navItems = [
     { name: "Home", path: "/" },
     { name: "Book Lists", path: "/book-lists" },
-    { name: "Pages to Read", path: "/pages-to-read" },
+    { name: "Books to Read", path: "/books-to-read" },
   ];
   return (
     <div className="container mx-auto">

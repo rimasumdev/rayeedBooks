@@ -7,11 +7,9 @@ const BookLists = () => {
   // console.log("Location", location.pathname);
   const [toDisplay, setToDisplay] = useState(data);
   useEffect(() => {
-    if (location.pathname === "/book-lists") {
+    if (location.pathname === "/book-lists" || location.pathname === "/") {
       setToDisplay(data.slice(0, 12));
       // console.log("toDisplay", toDisplay);
-    } else {
-      setToDisplay(data);
     }
   }, [data, location.pathname]);
   const handleLoadMore = () => {
