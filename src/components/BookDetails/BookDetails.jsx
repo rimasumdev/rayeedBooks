@@ -2,6 +2,7 @@ import { useLoaderData, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import {
   addToLocalStorage,
   getFromLocalStorage,
@@ -79,6 +80,9 @@ const BookDetails = () => {
   };
   return (
     <div className="container mx-auto">
+      <Helmet>
+        <title>{bookName} | Rayeed Book Store</title>
+      </Helmet>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 px-4 py-10 auto-rows-auto">
         <img
           src={image}

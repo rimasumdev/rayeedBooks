@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getFromLocalStorage } from "../../utility/LocalStorage";
+import { Helmet } from "react-helmet-async";
 const BooksToRead = () => {
   const books = useLoaderData();
   const readBooks = getFromLocalStorage("readBooks");
@@ -45,6 +46,9 @@ const BooksToRead = () => {
   };
   return (
     <section className="py-10">
+      <Helmet>
+        <title>Books to Read</title>
+      </Helmet>
       <div className="container mx-auto space-y-10">
         <div className="bg-green-50 p-5 rounded-lg">
           <h1 className="text-3xl font-bold text-center">Books to Read</h1>

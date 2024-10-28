@@ -1,6 +1,7 @@
 import { useLoaderData, useLocation, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Book from "../Book/Book";
+import { Helmet } from "react-helmet-async";
 const BookLists = () => {
   const data = useLoaderData();
   const location = useLocation();
@@ -17,6 +18,11 @@ const BookLists = () => {
   };
   return (
     <section className="py-10">
+      {location.pathname === "/book-lists" && (
+        <Helmet>
+          <title>Book Lists</title>
+        </Helmet>
+      )}
       <div className="container mx-auto">
         <h1 className="text-3xl font-bold text-center">Books</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-center items-center px-4 py-10">

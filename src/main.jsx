@@ -7,6 +7,7 @@ import Home from "./components/Home/Home.jsx";
 import BookLists from "./components/BookLists/BookLists.jsx";
 import BooksToRead from "./components/BooksToRead/BooksToRead.jsx";
 import BookDetails from "./components/BookDetails/BookDetails.jsx";
+import { HelmetProvider } from "react-helmet-async";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -38,6 +39,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <HelmetProvider>
+      <RouterProvider router={router} />
+    </HelmetProvider>
   </StrictMode>
 );
