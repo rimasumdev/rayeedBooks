@@ -40,27 +40,30 @@ const BookLists = () => {
         </Helmet>
       )}
       <div className="container mx-auto">
-        <div className="flex justify-between items-center">
+        <div
+          className={`flex ${
+            location.pathname === "/book-lists"
+              ? "justify-between"
+              : "justify-center"
+          } items-center`}
+        >
           <h1 className="text-3xl font-bold text-center">Books</h1>
-          <div className="w-full max-w-xs">
-            <label className="flex gap-2 items-center justify-end">
-              <div className="label">
+          {location.pathname === "/book-lists" && (
+            <div className="w-full max-w-xs">
+              <label className="flex gap-2 items-center justify-end">
                 <span className="label-text">Books per page</span>
-              </div>
-              <select
-                className="select select-bordered"
-                onChange={handleBooksPerPage}
-              >
-                <option disabled selected>
-                  Select
-                </option>
-                <option value={12}>12</option>
-                <option value={24}>24</option>
-                <option value={36}>36</option>
-                <option value={48}>48</option>
-              </select>
-            </label>
-          </div>
+                <select
+                  className="select select-bordered"
+                  onChange={handleBooksPerPage}
+                >
+                  <option value={12}>12</option>
+                  <option value={24}>24</option>
+                  <option value={36}>36</option>
+                  <option value={48}>48</option>
+                </select>
+              </label>
+            </div>
+          )}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-center items-center px-4 py-10">
           {toDisplay.map((book) => (
@@ -84,21 +87,23 @@ const BookLists = () => {
               </button>
             )} */}
         </div>
-        <div className="flex justify-center items-center gap-4">
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <button
-              key={index}
-              className={`btn ${
-                currentPage === index + 1
-                  ? "btn-primary text-white"
-                  : "btn-neutral"
-              }`}
-              onClick={() => handlePageChange(index + 1)}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
+        {location.pathname === "/book-lists" && (
+          <div className="flex justify-center items-center gap-4">
+            {Array.from({ length: totalPages }).map((_, index) => (
+              <button
+                key={index}
+                className={`btn ${
+                  currentPage === index + 1
+                    ? "btn-primary text-white"
+                    : "btn-neutral"
+                }`}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
