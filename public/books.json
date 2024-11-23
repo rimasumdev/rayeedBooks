@@ -68,7 +68,7 @@
     "bookId": 6,
     "bookName": "The Art of Computer Programming",
     "author": "Donald E. Knuth",
-    "image": "/img/TheArtOfComputerProgramming.png",
+    "image": "/img/TheArtofComputerProgramming.png",
     "review": "The bible of algorithms and computer science.",
     "totalPages": 3168,
     "rating": 4.9,

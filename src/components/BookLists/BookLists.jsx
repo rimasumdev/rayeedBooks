@@ -6,15 +6,31 @@ const BookLists = () => {
   const data = useLoaderData();
   const location = useLocation();
   // console.log("Location", location.pathname);
+  const totalBooks = data.length;
+  const [booksPerPage, setBooksPerPage] = useState(12);
+  const totalPages = Math.ceil(totalBooks / booksPerPage);
+  console.log("totalBooks", totalBooks);
+  console.log("totalPages", totalPages);
   const [toDisplay, setToDisplay] = useState(data);
+  const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     if (location.pathname === "/book-lists" || location.pathname === "/") {
       setToDisplay(data.slice(0, 12));
       // console.log("toDisplay", toDisplay);
     }
   }, [data, location.pathname]);
-  const handleLoadMore = () => {
-    setToDisplay(data.slice(0, toDisplay.length + 4));
+  // const handleLoadMore = () => {
+  //   setToDisplay(data.slice(0, toDisplay.length + 4));
+  // };
+  const handleBooksPerPage = (e) => {
+    setBooksPerPage(e.target.value);
+    setCurrentPage(1);
+    setToDisplay(data.slice(0, e.target.value));
+  };
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    setToDisplay(data.slice((page - 1) * booksPerPage, page * booksPerPage));
+    console.log("toDisplay", toDisplay);
   };
   return (
     <section className="py-10">
@@ -24,7 +40,28 @@ const BookLists = () => {
         </Helmet>
       )}
       <div className="container mx-auto">
-        <h1 className="text-3xl font-bold text-center">Books</h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-3xl font-bold text-center">Books</h1>
+          <div className="w-full max-w-xs">
+            <label className="flex gap-2 items-center justify-end">
+              <div className="label">
+                <span className="label-text">Books per page</span>
+              </div>
+              <select
+                className="select select-bordered"
+                onChange={handleBooksPerPage}
+              >
+                <option disabled selected>
+                  Select
+                </option>
+                <option value={12}>12</option>
+                <option value={24}>24</option>
+                <option value={36}>36</option>
+                <option value={48}>48</option>
+              </select>
+            </label>
+          </div>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-center items-center px-4 py-10">
           {toDisplay.map((book) => (
             <Book key={book.bookId} book={book} />
@@ -37,7 +74,7 @@ const BookLists = () => {
               View All
             </Link>
           )}
-          {location.pathname === "/book-lists" &&
+          {/* {location.pathname === "/book-lists" &&
             toDisplay.length < data.length && (
               <button
                 className="btn btn-primary text-white col-span-full mx-auto w-60"
@@ -45,7 +82,22 @@ const BookLists = () => {
               >
                 Load More
               </button>
-            )}
+            )} */}
+        </div>
+        <div className="flex justify-center items-center gap-4">
+          {Array.from({ length: totalPages }).map((_, index) => (
+            <button
+              key={index}
+              className={`btn ${
+                currentPage === index + 1
+                  ? "btn-primary text-white"
+                  : "btn-neutral"
+              }`}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
         </div>
       </div>
     </section>
