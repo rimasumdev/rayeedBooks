@@ -89,17 +89,17 @@ const BookLists = () => {
         </div>
         {location.pathname === "/book-lists" && (
           <div className="flex justify-center items-center gap-4">
-            {Array.from({ length: totalPages }).map((_, index) => (
+            {[...Array(totalPages).keys()].map((page) => (
               <button
-                key={index}
+                key={page}
                 className={`btn ${
-                  currentPage === index + 1
+                  currentPage === page + 1
                     ? "btn-primary text-white"
                     : "btn-neutral"
                 }`}
-                onClick={() => handlePageChange(index + 1)}
+                onClick={() => handlePageChange(page + 1)}
               >
-                {index + 1}
+                {page + 1}
               </button>
             ))}
           </div>
