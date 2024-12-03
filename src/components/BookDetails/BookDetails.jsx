@@ -81,7 +81,7 @@ const BookDetails = () => {
   return (
     <div className="container mx-auto">
       <Helmet>
-        <title>{bookName} | Rayeed Book Store</title>
+        <title>{bookName} | Rayeed Book Reviews</title>
       </Helmet>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 px-4 py-10 auto-rows-auto">
         <img

@@ -40,7 +40,7 @@ const Nav = () => {
           </div>
           <Link to="/" className="btn btn-ghost text-xl font-bold">
             <img src="/img/logo.svg" alt="logo" className=" lg:block" />
-            Rayeed&apos;s Book Store
+            Rayeed&apos;s Book Reviews
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">

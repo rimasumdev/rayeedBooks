@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Helmet>
-        <title>Rayeed Book Store</title>
+        <title>Rayeed Book Reviews</title>
       </Helmet>
       <Header />
       <Outlet />
